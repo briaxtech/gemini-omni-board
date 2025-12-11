@@ -1,6 +1,6 @@
 import React from 'react';
 import { PRESET_COLORS, STROKE_SIZES } from '../constants';
-import { Undo, Redo, Trash2, Download, Sparkles } from 'lucide-react';
+import { Undo, Redo, Trash2, Download, Sparkles, Box } from 'lucide-react';
 
 interface PropertiesBarProps {
   color: string;
@@ -12,6 +12,8 @@ interface PropertiesBarProps {
   onClear: () => void;
   onDownload: () => void;
   onToggleAi: () => void;
+  onToggle3D: () => void;
+  is3DMode: boolean;
   canUndo: boolean;
   canRedo: boolean;
 }
@@ -26,6 +28,8 @@ const PropertiesBar: React.FC<PropertiesBarProps> = ({
   onClear,
   onDownload,
   onToggleAi,
+  onToggle3D,
+  is3DMode,
   canUndo,
   canRedo
 }) => {
@@ -91,6 +95,17 @@ const PropertiesBar: React.FC<PropertiesBarProps> = ({
             title="Rehacer"
           >
             <Redo size={20} className="stroke-[1.5]" />
+          </button>
+
+          <div className="w-px h-6 bg-slate-200/50 mx-1"></div>
+
+          {/* 3D Toggle */}
+          <button
+            onClick={onToggle3D}
+            className={`w-10 h-10 flex items-center justify-center rounded-full transition-all active:scale-95 hover:shadow-sm ${is3DMode ? 'bg-indigo-100 text-indigo-600 ring-2 ring-indigo-200' : 'text-slate-600 hover:bg-slate-100/80'}`}
+            title="Modo 3D"
+          >
+            <Box size={20} className="stroke-[1.5]" />
           </button>
 
           <div className="w-px h-6 bg-slate-200/50 mx-1"></div>

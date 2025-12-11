@@ -14,6 +14,7 @@ const App: React.FC = () => {
   const [history, setHistory] = useState<DrawingElement[]>([]);
   const [redoStack, setRedoStack] = useState<DrawingElement[]>([]);
   const [isAiOpen, setIsAiOpen] = useState(false);
+  const [is3DMode, setIs3DMode] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
 
@@ -68,6 +69,31 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [history, redoStack]);
 
+  // Handle adding template image
+  const handleAddTemplate = (imageUrl: string) => {
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = () => {
+      // Add to history as an element
+      // We put it at center screen approx? Or 0,0 and let user move it (no move tool yet).
+      // Let's put it at 100,100
+      const newElement: DrawingElement = {
+        id: Math.random().toString(36).substr(2, 9),
+        tool: ToolType.RECTANGLE, // dummy tool, drawUtils checks imageUrl
+        color: '#000000',
+        size: 2,
+        points: [{ x: window.innerWidth / 2, y: window.innerHeight / 2 }], // center position
+        imageUrl: imageUrl,
+        image: img
+      };
+      setHistory(prev => [...prev, newElement]);
+      setRedoStack([]);
+    };
+    img.onerror = () => {
+      console.error("Failed to load template:", imageUrl);
+    };
+  };
+
   return (
     <div className="relative w-screen h-screen bg-slate-50 overflow-hidden font-sans">
 
@@ -82,6 +108,8 @@ const App: React.FC = () => {
         onClear={handleClear}
         onDownload={handleDownload}
         onToggleAi={() => setIsAiOpen(!isAiOpen)}
+        onToggle3D={() => setIs3DMode(!is3DMode)}
+        is3DMode={is3DMode}
         canUndo={history.length > 0}
         canRedo={redoStack.length > 0}
       />
@@ -99,6 +127,7 @@ const App: React.FC = () => {
         setHistory={setHistory}
         redoStack={redoStack}
         setRedoStack={setRedoStack}
+        is3DMode={is3DMode}
       />
 
       {/* AI Assistant */}
@@ -106,6 +135,7 @@ const App: React.FC = () => {
         isOpen={isAiOpen}
         onClose={() => setIsAiOpen(false)}
         canvasRef={canvasRef}
+        onAddTemplate={handleAddTemplate}
       />
 
       {/* Empty State Hint */}

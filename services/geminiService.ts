@@ -6,24 +6,24 @@ const apiKey = process.env.API_KEY || '';
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const FALLBACK_IDEAS = [
-  "Koki, ¡dibuja un perro astronauta en la luna! 🐶🌕",
-  "¿Qué tal si dibujas un castillo hecho de helado? 🍦🏰",
-  "Dibuja tu superhéroe favorito salvando un gatito. 🦸‍♂️🐱",
-  "¡Imagina un coche que puede volar! Dibújalo. 🚗✈️",
-  "Dibuja un bosque mágico con árboles de colores. 🌳🌈",
-  "Trata de dibujar un robot cocinando una pizza. 🤖🍕",
-  "Dibuja el animal más raro que puedas imaginar. 🦄🐉",
-  "¡Koki, dibuja cómo te sientes hoy con colores! 🎨😊",
-  "Dibuja una casa bajo el mar. 🏠🌊",
-  "¡Haz un dibujo de tu familia convertida en dibujos animados! 👨‍👩‍👧‍👦✏️"
+  "¡Koki, dibuja un Creeper de Minecraft explotando de risa! 🟩💥",
+  "¿Qué tal un autobús de batalla de Fortnite con ruedas de pizza? 🍕🚌",
+  "Imagina a tu personaje de Roblox ganando una carrera en Rocket League. 🏎️🏆",
+  "¡Dibuja a un Fall Guy intentando no caerse de un arcoíris! 🌈👑",
+  "Dibuja el coche más rápido de Rocket League volando por el espacio. 🚀✨",
+  "¡Haz una espada de diamante de Minecraft pero de fuego! 🔥⚔️",
+  "Imagina una skin legendaria para ti, ¡dibújala! 👕🎨",
+  "¿Cómo sería una mansión de Roblox en la vida real? 🏠😲",
+  "Dibuja una victoria magistral con confeti de colores. 🏆🎉",
+  "¡Un cerdo de Minecraft conduciendo un coche de Rocket League! 🐷🚗"
 ];
 
 const FALLBACK_ERRORS = [
-  "Uy Koki, se me empañaron las gafas mágicas. ¿Lo intentamos de nuevo? 👓✨",
-  "¡Vaya! Mi cerebro de robot está un poco dormido. Dímelo otra vez. 🤖💤",
-  "Koki, no pude escuchar tu dibujo. ¡Intenta enviarlo de nuevo! 👂🎨",
-  "Parece que hay nubes en mi conexión mágica. Prueba otra vez. ☁️📶",
-  "¡Ups! Me distraje persiguiendo una mariposa digital. ¿Qué decías? 🦋💻"
+  "Ups, mi radar de gamer falló. ¿Probamos otra vez? 🎮📡",
+  "¡Lag! No te escuché bien, Koki. Repítelo, crack. 📶⚠️",
+  "Mis circuitos se cruzaron. ¡Dame otra oportunidad! 🤖⚡",
+  "No pude procesar esa jugada maestra. ¿De nuevo? 🔁🕹️",
+  "¡Vaya glitcheo! Intenta enviarlo otra vez. 🐛💻"
 ];
 
 const getRandom = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
@@ -32,7 +32,7 @@ export const analyzeDrawing = async (imageBlob: Blob, promptText: string): Promi
   // If no API key is set, simulate a delay and return a creative error/placeholder
   if (!apiKey) {
     await new Promise(r => setTimeout(r, 1000));
-    return "Koki, parece que no tengo mi llave mágica (API Key) configurada. Pide ayuda a un adulto para arreglarlo. 🔑🔧";
+    return "Koki, parece que no tengo mi llave maestra (API Key). ¡Dile a un adulto que nos ayude a conectarnos para jugar! 🔑🎮";
   }
 
   try {
@@ -57,7 +57,7 @@ export const analyzeDrawing = async (imageBlob: Blob, promptText: string): Promi
         }
       },
       {
-        text: "Eres Pepito, un asistente creativo y compañero de arte para niños. Estás entrenado con las mejores prácticas de psicopedagogía.\n\nTus principios son:\n1. **Refuerzo Positivo**: Valora el esfuerzo y la imaginación, no solo el resultado. Usa 'Growth Mindset' ('¡Veo que te has esforzado mucho!').\n2. **Andamiaje (Scaffolding)**: Si Koki no sabe qué dibujar, dale pistas paso a paso, no la solución completa.\n3. **Inteligencia Emocional**: Pregunta cómo se siente el dibujo o qué historia cuenta.\n4. **Seguridad**: Promueve temas sanos, naturaleza, amistad y valores.\n\nResponde siempre en Español. Dirígete a él como 'Koki'. Sé breve, muy entusiasta y usa emojis."
+        text: "Eres Pepito, un asistente creativo 'Gamer' y compañero de arte. Estás entrenado con las mejores prácticas de psicopedagogía pero con un estilo fresco.\n\n**PERFIL DE KOKI (8 AÑOS):**\n- Le encanta: **Minecraft**, **Roblox**, **Fortnite**, **Fall Guys** y **Rocket League**.\n- Es un 'crack' dibujando y le gusta que le hablen como a un compañero de equipo, no como a un bebé.\n\nTus principios son:\n1. **Estilo Gamer/Youtuber**: Usa términos como 'pro', 'noob', 'loot', 'skin', 'victoria magistral', 'glitch', 'spawnear'. Sé muy entusiasta.\n2. **Refuerzo Positivo ('Growth Mindset')**: Valora el esfuerzo. '¡Esa construcción te quedó épica!'.\n3. **Andamiaje**: Da consejos de arte usando metáforas de juegos.\n4. **Seguridad**: Temas sanos. Si menciona Fortnite/armas, enfócate en la estrategia, construcción o skins, no en la violencia.\n\nResponde siempre en Español. Dirígete a él como 'Koki'. Sé breve (max 2-3 frases), divertido y usa emojis gamers."
       }
     ]);
 
@@ -76,7 +76,7 @@ export const generateIdea = async (): Promise<string> => {
 
   try {
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const result = await model.generateContent("Dame una idea corta y creativa para que Koki (un niño) dibuje en una pizarra blanca. Algo divertido y visual en una sola frase en Español. Dirígete a él por su nombre.");
+    const result = await model.generateContent("Dame una idea corta y súper creativa para que Koki (8 años, fan de Minecraft, Roblox, Fortnite, Rocket League) dibuje. Algo 'pro' pero divertido. Una sola frase en Español. Dirígete a él por su nombre.");
     return result.response.text();
   } catch (error) {
     console.error("Gemini API Error:", error);

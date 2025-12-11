@@ -1,5 +1,5 @@
 import { ToolType } from './types';
-import { Pencil, Eraser, Minus, Square, Circle } from 'lucide-react';
+import { Pencil, Eraser, Minus, Square, Circle, Triangle, Star } from 'lucide-react';
 
 export const TOOLS = [
   { id: ToolType.PENCIL, icon: Pencil, label: 'Pencil' },
@@ -7,6 +7,8 @@ export const TOOLS = [
   { id: ToolType.LINE, icon: Minus, label: 'Line' },
   { id: ToolType.RECTANGLE, icon: Square, label: 'Rectangle' },
   { id: ToolType.CIRCLE, icon: Circle, label: 'Circle' },
+  { id: ToolType.TRIANGLE, icon: Triangle, label: 'Triangle' },
+  { id: ToolType.STAR, icon: Star, label: 'Star' },
 ];
 
 export const PRESET_COLORS = [
@@ -20,4 +22,4 @@ export const PRESET_COLORS = [
   '#EC4899', // Pink
 ];
 
-export const STROKE_SIZES = [2, 4, 8, 12, 24];
+export const STROKE_SIZES = [1, 2, 4, 8, 12, 24];

@@ -4,6 +4,8 @@ export enum ToolType {
   LINE = 'line',
   RECTANGLE = 'rectangle',
   CIRCLE = 'circle',
+  TRIANGLE = 'triangle',
+  STAR = 'star',
 }
 
 export interface Point {
@@ -19,6 +21,9 @@ export interface DrawingElement {
   points: Point[]; // For pencil/eraser
   startPoint?: Point; // For shapes
   endPoint?: Point; // For shapes
+  is3D?: boolean; // 3D effect flag
+  imageUrl?: string; // For template images
+  image?: HTMLImageElement; // Loaded image object
 }
 
 export interface AiMessage {

@@ -13,6 +13,7 @@ interface CanvasBoardProps {
   setHistory: React.Dispatch<React.SetStateAction<DrawingElement[]>>;
   redoStack: DrawingElement[];
   setRedoStack: React.Dispatch<React.SetStateAction<DrawingElement[]>>;
+  is3DMode: boolean;
 }
 
 const CanvasBoard: React.FC<CanvasBoardProps> = ({
@@ -23,7 +24,8 @@ const CanvasBoard: React.FC<CanvasBoardProps> = ({
   history,
   setHistory,
   redoStack,
-  setRedoStack
+  setRedoStack,
+  is3DMode
 }) => {
   // We use two canvases:
   // 1. canvasRef (passed from props) -> The persistent layer where finalized history is drawn
@@ -124,7 +126,8 @@ const CanvasBoard: React.FC<CanvasBoardProps> = ({
         size,
         points: [],
         startPoint,
-        endPoint: pos
+        endPoint: pos,
+        is3D: is3DMode // Preview in 3D too
       };
       drawElement(ctx, element);
     }
@@ -159,7 +162,8 @@ const CanvasBoard: React.FC<CanvasBoardProps> = ({
         size,
         points: [],
         startPoint,
-        endPoint: pos
+        endPoint: pos,
+        is3D: is3DMode // Capture state
       };
     }
 
